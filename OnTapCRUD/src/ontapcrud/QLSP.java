@@ -9,7 +9,8 @@ public class QLSP extends javax.swing.JFrame {
     private SanPhamService sv = new SanPhamService();
     private DefaultTableModel dtm = new DefaultTableModel();
     private ArrayList<SanPham> listSP = new ArrayList<>();
-
+    private String filename = "SanPham.txt";
+    
     public QLSP() {
         initComponents();
         dtm = (DefaultTableModel) tblSP.getModel();
@@ -91,6 +92,8 @@ public class QLSP extends javax.swing.JFrame {
         btnThem = new javax.swing.JButton();
         btnSua = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
+        btnDoc = new javax.swing.JButton();
+        btnGhi = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblSP = new javax.swing.JTable();
 
@@ -130,6 +133,20 @@ public class QLSP extends javax.swing.JFrame {
             }
         });
 
+        btnDoc.setText("Đọc");
+        btnDoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDocActionPerformed(evt);
+            }
+        });
+
+        btnGhi.setText("Ghi");
+        btnGhi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGhiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -141,10 +158,14 @@ public class QLSP extends javax.swing.JFrame {
                 .addComponent(btnSua)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnXoa)
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDoc)
+                .addGap(18, 18, 18)
+                .addComponent(btnGhi)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnSua, btnThem, btnXoa});
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnDoc, btnGhi, btnSua, btnThem, btnXoa});
 
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -153,7 +174,9 @@ public class QLSP extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem)
                     .addComponent(btnSua)
-                    .addComponent(btnXoa))
+                    .addComponent(btnXoa)
+                    .addComponent(btnDoc)
+                    .addComponent(btnGhi))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
 
@@ -245,7 +268,7 @@ public class QLSP extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
@@ -295,6 +318,21 @@ public class QLSP extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnXoaActionPerformed
 
+    private void btnDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDocActionPerformed
+        listSP.clear();
+        JOptionPane.showMessageDialog(this,sv.docFile(filename));       
+        loadTable(listSP);
+    }//GEN-LAST:event_btnDocActionPerformed
+
+    private void btnGhiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGhiActionPerformed
+        int row = tblSP.getSelectedRow();
+        if(row<0){
+           JOptionPane.showMessageDialog(this,"Bạn chưa chon đối tượng để ghi");
+           return;
+        }
+        JOptionPane.showMessageDialog(this,sv.ghiFile(row,filename));
+    }//GEN-LAST:event_btnGhiActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -331,6 +369,8 @@ public class QLSP extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDoc;
+    private javax.swing.JButton btnGhi;
     private javax.swing.JButton btnSua;
     private javax.swing.JButton btnThem;
     private javax.swing.JButton btnXoa;

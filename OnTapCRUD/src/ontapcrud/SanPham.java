@@ -1,5 +1,8 @@
 package ontapcrud;
-public class SanPham {
+
+import java.io.Serializable;
+
+public class SanPham implements Serializable{
     private String maSP;
     private String tenSP;
     private double gia;
